@@ -16,5 +16,9 @@
   "bugs": {
     "url": "https://github.com/pandashavenobugs/MqttResponsePatternBlogPost/issues"
   },
-  "homepage": "https://github.com/pandashavenobugs/MqttResponsePatternBlogPost#readme"
+  "homepage": "https://github.com/pandashavenobugs/MqttResponsePatternBlogPost#readme",
+  "dependencies": {
+    "config": "^3.3.7",
+    "mqtt": "^4.3.4"
+  }
 }
