@@ -4,4 +4,4 @@ Mqtt is a client server publish/subscribe messaging transport protocol [[1](http
 
 # Why Do We Need MQTT Response Pattern ?
 
-MQTT is usually used for getting data from devices. Sometimes we may need to send data to devices, services, or people. Publishing the payload(message) is enough to send subscribers data but there are some questions. Is data received by the subscriber or the broker ? what is the latest situation of the subscriber ? what happened when the subscriber gets the data from mqtt?
+MQTT is usually used for getting data from devices. Sometimes we may need to send data to devices, services, or people. Publishing the payload(message) is enough to send subscribers data but there are some questions. Is data received by the subscriber? what is the latest situation of the subscriber ? what happened when the subscriber gets the data from mqtt?
