@@ -8,4 +8,4 @@ MQTT is usually used for getting data from devices. Sometimes we may need to sen
 
 ![publishImage](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/z6lj4z84zkshxory82bh.png) _publishing message_
 
-So far so good but there are some issues with it. Is data received by the subscriber? what is the latest situation of the subscriber? The publisher is not sure if the subscriber receives the message. The publisher can only ensure that the message is delivered to the broker by changing the level of the [QoS](https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/). At this point the MQTT response pattern becomes necessary.
+So far so good but there are some issues with it. Is data received by the subscriber? what is the latest situation of the subscriber? The publisher is not sure if the subscriber receives the message. The publisher needs the response coming from the subscriber to be sure, however, can make sure that the message is delivered to the broker by changing the level of the [QoS](https://www.hivemq.com/blog/mqtt-essentials-part-6-mqtt-quality-of-service-levels/).the publisher .
