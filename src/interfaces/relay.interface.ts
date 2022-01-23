@@ -4,5 +4,5 @@ export interface RelayResponseMessage {
 }
 
 export interface RelayRequestMessage {
-  relay: number;
+  relayState: number;
 }
