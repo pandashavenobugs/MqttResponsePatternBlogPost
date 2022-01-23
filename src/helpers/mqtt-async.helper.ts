@@ -20,7 +20,7 @@ export function publishWithResponseBasic({
   return new Promise((resolve, reject) => {
     const requestTopic = `request/${deviceName}/${relayName}`;
     const relayRequestMessage: RelayRequestMessage = {
-      relayState: 1,
+      relayState: message,
     };
     client.subscribe(`response/${deviceName}/${relayName}`);
     client.once("message", (topic, payload) => {
