@@ -19,10 +19,11 @@ export function publishWithResponseBasic({
 }): Promise<string> {
   return new Promise((resolve, reject) => {
     const requestTopic = `request/${deviceName}/${relayName}`;
+    const responseTopic = `response/${deviceName}/${relayName}`;
     const relayRequestMessage: RelayRequestMessage = {
       relayState: message,
     };
-    client.subscribe(`response/${deviceName}/${relayName}`);
+    client.subscribe(responseTopic);
     client.once("message", (topic, payload) => {
       try {
         const relayResponseMessage: RelayResponseMessage = JSON.parse(
