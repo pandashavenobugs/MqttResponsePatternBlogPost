@@ -6,20 +6,18 @@ import {
 
 export function publishWithResponseBasic({
   client,
-  deviceName,
-  relayName,
   message,
   publishOptions,
+  requestTopic,
+  responseTopic,
 }: {
   client: MqttClient;
-  deviceName: string;
-  relayName: string;
   message: 0 | 1;
   publishOptions: IClientPublishOptions;
+  requestTopic: string;
+  responseTopic: string;
 }): Promise<string> {
   return new Promise((resolve, reject) => {
-    const requestTopic = `request/${deviceName}/${relayName}`;
-    const responseTopic = `response/${deviceName}/${relayName}`;
     const relayRequestMessage: RelayRequestMessage = {
       relayState: message,
     };
