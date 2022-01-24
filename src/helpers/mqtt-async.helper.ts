@@ -23,6 +23,7 @@ export function publishWithResponseBasic({
     };
     client.subscribe(responseTopic);
     client.once("message", (topic, payload) => {
+      client.unsubscribe(responseTopic);
       try {
         const relayResponseMessage: RelayResponseMessage = JSON.parse(
           payload.toString()
