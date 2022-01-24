@@ -15,12 +15,16 @@ setTimeout(async () => {
       correlationData: Buffer.from("test", "utf-8"),
     },
   };
-  const responseMessage = await publishWithResponseBasic({
-    client: mqttServerClient,
-    publishOptions,
-    requestTopic,
-    responseTopic,
-    message: 1,
-  });
-  console.log(responseMessage);
+  try {
+    const responseMessage = await publishWithResponseBasic({
+      client: mqttServerClient,
+      publishOptions,
+      requestTopic,
+      responseTopic,
+      message: 1,
+    });
+    console.log(responseMessage);
+  } catch (error) {
+    console.log(error);
+  }
 }, 1000);
