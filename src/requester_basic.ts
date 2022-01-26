@@ -12,7 +12,7 @@ setTimeout(async () => {
     qos: 1,
     properties: {
       responseTopic,
-      correlationData: Buffer.from("test", "utf-8"),
+      correlationData: Buffer.from("secret", "utf-8"),
     },
   };
   try {
