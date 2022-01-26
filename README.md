@@ -72,3 +72,16 @@ export default mqttServerClient;
 ```
 
 Properties object in IClientOptions is supported by just MQTT 5.0. So we set the protocolVersion 5 to use properties object. In this options. At this point we have 2 necessary options, requestResponseInformation and requestProblemInformation. The [RequestResponseInformation](https://www.hivemq.com/blog/mqtt5-essentials-part9-request-response-pattern/#:~:text=sender%20and%20receiver.-,Response%20Information,-In%20the%20spirit) is used for the broker sending the clients the response information in the CONNACK packet. The requestProblemInformation is used by clients to indicate any failures.
+
+Creating utils/relay.interface.ts
+
+```typescript
+export interface RelayResponseMessage {
+  error: boolean;
+  message: string;
+}
+
+export interface RelayRequestMessage {
+  relayState: number;
+}
+```
