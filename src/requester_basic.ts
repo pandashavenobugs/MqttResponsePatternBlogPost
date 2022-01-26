@@ -5,7 +5,15 @@ import mqttServerClient from "./utils/connectMqtt";
 const deviceName: string = "device_1";
 const relayName: string = "relay_1";
 
-setTimeout(async () => {
+setTimeout(() => {
+  startSystem();
+}, 1000);
+
+const startSystem = () => {
+  startResponsePatternExample();
+};
+
+const startResponsePatternExample = async () => {
   const responseTopic = `response/${deviceName}/${relayName}`;
   const requestTopic = `request/${deviceName}/${relayName}`;
   const publishOptions: IClientPublishOptions = {
@@ -27,4 +35,4 @@ setTimeout(async () => {
   } catch (error) {
     console.log(error);
   }
-}, 1000);
+};
