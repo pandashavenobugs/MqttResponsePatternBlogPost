@@ -44,7 +44,7 @@ tsc --init
 
 Creating connectMqtt.ts util
 
-```typescript
+```ts
 // utils/connectMqtt.ts file
 import mqtt, { IClientOptions, MqttClient } from "mqtt";
 
