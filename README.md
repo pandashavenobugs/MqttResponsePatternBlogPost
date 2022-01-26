@@ -136,3 +136,46 @@ export function publishWithResponseBasic({
 ```
 
 mqtt-async.helpers.ts is a wrapper that turns the mqttClient callbacks into the async await function. It is required to subscribe to the response topic before publishing the message to the request topic. So that the publisher can receive the response data from the subscriber. In this situation the subscriber has to publish the response message to the response topic, otherwise, the publishWithResponseBasic function will not be closed and it will cause errors, memory leaks, etc. This is the weakness of this wrapper.
+
+Creating requester_basic.ts
+
+```ts
+import { IClientPublishOptions } from "mqtt";
+import { publishWithResponseBasic } from "./helpers/mqtt-async.helper";
+import mqttServerClient from "./utils/connectMqtt";
+
+const deviceName: string = "device_1";
+const relayName: string = "relay_1";
+
+setTimeout(() => {
+  startSystem();
+}, 1000);
+
+const startSystem = () => {
+  startResponsePatternExample();
+};
+
+const startResponsePatternExample = async () => {
+  const responseTopic = `response/${deviceName}/${relayName}`;
+  const requestTopic = `request/${deviceName}/${relayName}`;
+  const publishOptions: IClientPublishOptions = {
+    qos: 1,
+    properties: {
+      responseTopic,
+      correlationData: Buffer.from("secret", "utf-8"),
+    },
+  };
+  try {
+    const responseMessage = await publishWithResponseBasic({
+      client: mqttServerClient,
+      publishOptions,
+      requestTopic,
+      responseTopic,
+      message: 1,
+    });
+    console.log(responseMessage);
+  } catch (error) {
+    console.log(error);
+  }
+};
+```
