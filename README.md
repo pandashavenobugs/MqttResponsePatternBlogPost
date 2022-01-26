@@ -135,4 +135,4 @@ export function publishWithResponseBasic({
 }
 ```
 
-mqtt-async.helpers.ts is a wrapper that turns the mqttClient callbacks into the async await function.
+mqtt-async.helpers.ts is a wrapper that turns the mqttClient callbacks into the async await function. It is required to subscribe to the response topic before publishing the data to the request topic. So that the publisher can reveice the response data from the subscriber.
