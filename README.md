@@ -30,7 +30,7 @@ Installing mqtt package
 npm install mqtt
 ```
 
-Packges for typescript
+Packges for typescript. **Note that: mqtt npm package doesn't need @types/mqtt. So we dont intsall @types/mqtt.**
 
 ```bash
 npm install @types/node ts-node typescript -D
