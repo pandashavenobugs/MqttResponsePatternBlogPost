@@ -2,7 +2,7 @@ import { IClientPublishOptions, MqttClient } from "mqtt";
 import {
   RelayRequestMessage,
   RelayResponseMessage,
-} from "src/interfaces/relay.interface";
+} from "../interfaces/relay.interface";
 
 export function publishWithResponseBasic({
   client,
