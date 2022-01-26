@@ -18,13 +18,13 @@ In MQTT response pattern we work on 2 main topics, request and response topics. 
 
 - In this tutorial we're going to use just the mqtt package. The other packages are relevant to typescript.
 
-creating package.json
+Creating package.json
 
 ```bash
 npm init -y
 ```
 
-installing mqtt package
+Installing mqtt package
 
 ```bash
 npm install mqtt
@@ -36,7 +36,7 @@ Packges for typescript
 npm install @types/node ts-node typescript -D
 ```
 
-creating tsconfig.json
+Creating tsconfig.json
 
 ```bash
 tsc --init
