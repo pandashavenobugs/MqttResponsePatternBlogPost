@@ -10,7 +10,12 @@ mqttServerClient.on("message", (topic, payload, packet) => {
   console.log(packet);
   const { relayState } = JSON.parse(payload.toString());
   console.log(payload.toString());
-  if (packet.properties && packet.properties.responseTopic) {
+  if (
+    packet.properties &&
+    packet.properties.responseTopic &&
+    packet.properties.correlationData &&
+    packet.properties.correlationData.toString() === "secret"
+  ) {
     const responseData = {
       error: false,
       message: `${relayState === 1 ? "relay opened" : "relay can not opened"}`,
