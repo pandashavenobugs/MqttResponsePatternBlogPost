@@ -181,3 +181,33 @@ const startResponsePatternExample = async () => {
 ```
 
 we have two optional parameters,[responseTopic](https://www.hivemq.com/blog/mqtt5-essentials-part9-request-response-pattern/#:~:text=a%20concrete%20example.-,Response%20Topic,-A%20response%20topic) and [correlationData](https://www.hivemq.com/blog/mqtt5-essentials-part9-request-response-pattern/#:~:text=out%20the%20request.-,Correlation%20Data,-Correlation%20data%20is). The responseTopic option represents the topic that the subscriber uses to publish the response message.The correlationData is a buffer data in nodeJS and used for additional information about the request message or a specific request. Also, it can be used for identifying by using a secret word as buffer data.
+
+creating subscriber_basic.ts
+
+```ts
+import { IClientSubscribeOptions } from "mqtt";
+import mqttServerClient from "./utils/connectMqtt";
+
+const opts: IClientSubscribeOptions = {
+  qos: 1,
+};
+mqttServerClient.subscribe("request/device_1/relay_1", opts);
+
+mqttServerClient.on("message", (topic, payload, packet) => {
+  console.log(packet);
+  const { relayState } = JSON.parse(payload.toString());
+  console.log(payload.toString());
+  if (packet.properties && packet.properties.responseTopic) {
+    const responseData = {
+      error: false,
+      message: `${relayState === 1 ? "relay opened" : "relay can not opened"}`,
+    };
+    mqttServerClient.publish(
+      packet.properties.responseTopic,
+      JSON.stringify(responseData)
+    );
+  }
+});
+```
+
+We must focus on the packet parameter that contains the responseTopic and the correlationData.
