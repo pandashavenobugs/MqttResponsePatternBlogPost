@@ -210,4 +210,4 @@ mqttServerClient.on("message", (topic, payload, packet) => {
 });
 ```
 
-We must focus on the packet parameter that contains the responseTopic and the correlationData.
+We focus on the packet parameter that contains the responseTopic and the correlationData. I use the correlationData as a secret code.The response message is published if the converted correlationData is 'secret'.
