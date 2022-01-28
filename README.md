@@ -329,3 +329,38 @@ Compiling the typescript codes.
 ```bash
 tsc
 ```
+
+Compiled project is in build folder.
+
+First of all we start the subscriber.
+
+```bash
+node build/subscriber_basic.js
+```
+
+Then we start the requester.
+
+```bash
+node build/requester_basic.js
+```
+
+The console log of the subscriber_basic.js.
+
+```bash
+Packet {
+  cmd: 'publish',
+  retain: false,
+  qos: 1,
+  dup: false,
+  length: 82,
+  topic: 'request/device_1/relay_1',
+  payload: <Buffer 7b 22 72 65 6c 61 79 53 74 61 74 65 22 3a 31 7d>,
+  messageId: 1,
+  properties: {
+    responseTopic: 'response/device_1/relay_1',
+    correlationData: <Buffer 73 65 63 72 65 74>
+  }
+}
+```
+
+As you can see the subscriber receives the responseTopic and correlationData in the properties object in the packet. The subscriber can use these informations to publish the response message.
