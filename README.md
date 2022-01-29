@@ -363,4 +363,4 @@ Packet {
 }
 ```
 
-As you can see the subscriber receives the responseTopic and correlationData in the properties object in the packet. The subscriber can use these informations to publish the response message.
+As you can see the subscriber receives the responseTopic and correlationData in the properties object in the packet. The subscriber can use these informations to publish the response message. This example works well within certain limits. We have one topic to request and response. what happens if the publisher subscribe some topics in addition to the response topic? in nodeJS we can not listen to the specific topics. The message coming from the subscribed topics except the response topic can trigger the listener in the publishWithResponseBasic function. We need a solution more complex than before.
