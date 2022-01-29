@@ -1,4 +1,6 @@
+import EventEmitter from "events";
 import { IClientPublishOptions, MqttClient } from "mqtt";
+
 import {
   RelayRequestMessage,
   RelayResponseMessage,
@@ -40,5 +42,43 @@ export function publishWithResponseBasic({
       JSON.stringify(relayRequestMessage),
       publishOptions
     );
+  });
+}
+
+export function publishWithResponse({
+  client,
+  data,
+  publishOptions,
+  responseEventName,
+  requestTopic,
+  eventEmitter,
+}: {
+  client: MqttClient;
+  data: 0 | 1;
+  publishOptions: IClientPublishOptions;
+  requestTopic: string;
+  responseEventName: string;
+  eventEmitter: EventEmitter;
+}) {
+  return new Promise((resolve, reject) => {
+    eventEmitter.once(
+      responseEventName,
+      (relayResponseMessage: RelayResponseMessage) => {
+        clearTimeout(timeOutCheck);
+        relayResponseMessage.error
+          ? reject(relayResponseMessage.message)
+          : resolve(relayResponseMessage);
+      }
+    );
+    const timeOutCheck = setTimeout(() => {
+      const relayResponseMessage: RelayResponseMessage = {
+        error: true,
+        message: "timeOut",
+      };
+
+      eventEmitter.emit(responseEventName, relayResponseMessage);
+    }, 5000);
+    const payload = { data };
+    client.publish(requestTopic, JSON.stringify(payload), publishOptions);
   });
 }
