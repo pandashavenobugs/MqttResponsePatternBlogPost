@@ -367,4 +367,4 @@ As you can see the subscriber receives the responseTopic and correlationData in 
 
 ### Solution
 
-For complex MQTT subscribe structure in nodeJS projects we take advanced of the nodeJS events. So we could pick out the specific topic subscribed.
+For complex MQTT subscribe structures in nodeJS projects we take advanced of the nodeJS events. So we could pick out the specific topic.
