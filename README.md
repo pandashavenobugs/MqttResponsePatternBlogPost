@@ -391,3 +391,5 @@ export function relayResponseEvent({
   return eventEmitter.emit(eventName, eventData);
 }
 ```
+
+The function that emits the eventData to the eventName.
