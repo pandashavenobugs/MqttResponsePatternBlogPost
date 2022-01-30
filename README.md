@@ -368,3 +368,36 @@ As you can see the subscriber receives the responseTopic and correlationData in 
 ### Solution
 
 For complex MQTT subscribe structures in nodeJS projects we take advanced of the nodeJS events. So we could pick out the specific topic by using event listeners with unique event names.
+
+Creating relayResponseEvent.helper.ts
+
+```ts
+import { IClientSubscribeOptions } from "mqtt";
+import mqttServerClient from "./utils/connectMqtt";
+
+const opts: IClientSubscribeOptions = {
+  qos: 1,
+};
+mqttServerClient.subscribe("request/device_1/relay_1", opts);
+
+mqttServerClient.on("message", (topic, payload, packet) => {
+  console.log(packet);
+  const { relayState } = JSON.parse(payload.toString());
+  console.log(payload.toString());
+  if (
+    packet.properties &&
+    packet.properties.responseTopic &&
+    packet.properties.correlationData &&
+    packet.properties.correlationData.toString() === "secret"
+  ) {
+    const responseData = {
+      error: false,
+      message: `${relayState === 1 ? "relay opened" : "relay can not opened"}`,
+    };
+    mqttServerClient.publish(
+      packet.properties.responseTopic,
+      JSON.stringify(responseData)
+    );
+  }
+});
+```
