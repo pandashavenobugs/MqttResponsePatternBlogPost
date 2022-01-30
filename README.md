@@ -436,5 +436,3 @@ export function publishWithResponse({
   });
 }
 ```
-
-In this function we have 3 sections. The checkTimeOut is the setTimeout timer that will emit the relayResponseMessage to responseEventName after 5 seconds.
