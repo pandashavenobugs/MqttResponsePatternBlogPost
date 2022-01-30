@@ -61,7 +61,7 @@ export function publishWithResponse({
   eventEmitter: EventEmitter;
 }): Promise<RelayResponseMessage> {
   return new Promise((resolve, reject) => {
-    const timeOutCheck = setTimeout(() => {
+    const checkTimeOut = setTimeout(() => {
       const relayResponseMessage: RelayResponseMessage = {
         error: true,
         message: "timeOut",
@@ -72,7 +72,7 @@ export function publishWithResponse({
     eventEmitter.once(
       responseEventName,
       (relayResponseMessage: RelayResponseMessage) => {
-        clearTimeout(timeOutCheck);
+        clearTimeout(checkTimeOut);
         relayResponseMessage.error
           ? reject(relayResponseMessage.message)
           : resolve(relayResponseMessage);
