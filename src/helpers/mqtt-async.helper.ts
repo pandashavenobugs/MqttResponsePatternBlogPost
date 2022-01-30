@@ -59,8 +59,16 @@ export function publishWithResponse({
   requestTopic: string;
   responseEventName: string;
   eventEmitter: EventEmitter;
-}) {
+}): Promise<RelayResponseMessage> {
   return new Promise((resolve, reject) => {
+    const timeOutCheck = setTimeout(() => {
+      const relayResponseMessage: RelayResponseMessage = {
+        error: true,
+        message: "timeOut",
+      };
+
+      eventEmitter.emit(responseEventName, relayResponseMessage);
+    }, 5000);
     eventEmitter.once(
       responseEventName,
       (relayResponseMessage: RelayResponseMessage) => {
@@ -70,15 +78,8 @@ export function publishWithResponse({
           : resolve(relayResponseMessage);
       }
     );
-    const timeOutCheck = setTimeout(() => {
-      const relayResponseMessage: RelayResponseMessage = {
-        error: true,
-        message: "timeOut",
-      };
 
-      eventEmitter.emit(responseEventName, relayResponseMessage);
-    }, 5000);
-    const payload = { data };
+    const payload = { relayState: data };
     client.publish(requestTopic, JSON.stringify(payload), publishOptions);
   });
 }
