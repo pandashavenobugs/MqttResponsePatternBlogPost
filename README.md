@@ -372,32 +372,22 @@ For complex MQTT subscribe structures in nodeJS projects we take advanced of the
 Creating relayResponseEvent.helper.ts
 
 ```ts
-import { IClientSubscribeOptions } from "mqtt";
-import mqttServerClient from "./utils/connectMqtt";
+import EventEmitter from "events";
+import { RelayResponseMessage } from "src/interfaces/relay.interface";
 
-const opts: IClientSubscribeOptions = {
-  qos: 1,
-};
-mqttServerClient.subscribe("request/device_1/relay_1", opts);
-
-mqttServerClient.on("message", (topic, payload, packet) => {
-  console.log(packet);
-  const { relayState } = JSON.parse(payload.toString());
-  console.log(payload.toString());
-  if (
-    packet.properties &&
-    packet.properties.responseTopic &&
-    packet.properties.correlationData &&
-    packet.properties.correlationData.toString() === "secret"
-  ) {
-    const responseData = {
-      error: false,
-      message: `${relayState === 1 ? "relay opened" : "relay can not opened"}`,
-    };
-    mqttServerClient.publish(
-      packet.properties.responseTopic,
-      JSON.stringify(responseData)
-    );
-  }
-});
+export function relayResponseEvent({
+  eventEmitter,
+  deviceName,
+  relayName,
+  payload,
+}: {
+  eventEmitter: EventEmitter;
+  deviceName: string;
+  relayName: string;
+  payload: Buffer;
+}) {
+  const eventName = `responseEvent/${deviceName}/${relayName}`;
+  const eventData: RelayResponseMessage = JSON.parse(payload.toString());
+  return eventEmitter.emit(eventName, eventData);
+}
 ```
