@@ -363,8 +363,8 @@ Packet {
 }
 ```
 
-As you can see the subscriber receives the responseTopic and correlationData in the properties object in the packet. The subscriber can use these informations to publish the response message. This example works well within certain limits. We have one topic to request and response. what happens if the publisher subscribes some topics in addition to the response topic? We can not listen to the specific topics while using nodeJS MQTT package . The message coming from the subscribed topics except the response topic can trigger the listener in the publishWithResponseBasic function. We need a solution more complex than before.
+As you can see the subscriber receives the responseTopic and correlationData in the properties object in the packet. The subscriber can use these informations to publish the response message. This example works well within certain limits. We have one topic to request and response. what would happen if the publisher subscribed to multiple response topics or other topics ? We can not listen to the specific topics while using nodeJS MQTT package. The message coming from the subscribed topics can trigger the listener in the publishWithResponseBasic function. We need a solution more complex than before.
 
 ### Solution
 
-For complex MQTT subscribe structures in nodeJS projects we take advanced of the nodeJS events. So we could pick out the specific topic.
+For complex MQTT subscribe structures in nodeJS projects we take advanced of the nodeJS events. So we could pick out the specific topic by using event listeners with unique event names.
