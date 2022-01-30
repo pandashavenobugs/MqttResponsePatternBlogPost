@@ -436,3 +436,5 @@ export function publishWithResponse({
   });
 }
 ```
+
+In this function we have 2 sections. The checkTimeOut is the setTimeout timer that will pass the relayResponseMessage to responseEventName after 5 seconds. The eventEmitter.once listens to the responseEventName. When the eventEmitter.once listener is invoked the checkTimeOut is cleared even if eventEmitter.once listener is called by the checkTimeOut.
