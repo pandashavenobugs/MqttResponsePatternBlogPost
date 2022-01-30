@@ -18,7 +18,7 @@ mqttServerClient.on("message", (topic, payload, packet) => {
   ) {
     const responseData = {
       error: false,
-      message: `${relayState === 1 ? "relay opened" : "relay can not opened"}`,
+      message: `${relayState === 1 ? "relay opened" : "relay closed"}`,
     };
     mqttServerClient.publish(
       packet.properties.responseTopic,
