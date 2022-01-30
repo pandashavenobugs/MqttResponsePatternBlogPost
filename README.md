@@ -393,3 +393,48 @@ export function relayResponseEvent({
 ```
 
 The function that emits the eventData to the eventName.
+
+Creating the publishWithResponse function in mqtt-async.helper.ts
+
+```ts
+export function publishWithResponse({
+  client,
+  data,
+  publishOptions,
+  responseEventName,
+  requestTopic,
+  eventEmitter,
+}: {
+  client: MqttClient;
+  data: 0 | 1;
+  publishOptions: IClientPublishOptions;
+  requestTopic: string;
+  responseEventName: string;
+  eventEmitter: EventEmitter;
+}): Promise<RelayResponseMessage> {
+  return new Promise((resolve, reject) => {
+    const checkTimeOut = setTimeout(() => {
+      const relayResponseMessage: RelayResponseMessage = {
+        error: true,
+        message: "timeOut",
+      };
+
+      eventEmitter.emit(responseEventName, relayResponseMessage);
+    }, 5000);
+    eventEmitter.once(
+      responseEventName,
+      (relayResponseMessage: RelayResponseMessage) => {
+        clearTimeout(checkTimeOut);
+        relayResponseMessage.error
+          ? reject(relayResponseMessage.message)
+          : resolve(relayResponseMessage);
+      }
+    );
+
+    const payload = { relayState: data };
+    client.publish(requestTopic, JSON.stringify(payload), publishOptions);
+  });
+}
+```
+
+In this function we have 3 sections. The checkTimeOut is the setTimeout timer that will emit the relayResponseMessage to responseEventName after 5 seconds.
