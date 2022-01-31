@@ -548,3 +548,19 @@ The console log of the requester.js.
 device_1/relay_1 : relay opened
 device_2/relay_1 : relay opened
 ```
+
+We can pick out the response topics by using events. This example is not the best solution but I hope this tutorial gives you an idea about the MQTT response pattern.
+
+Thanks for reading.
+
+Contact me
+
+- [Linkedin](https://www.linkedin.com/in/cengiz-berat-din%C3%A7kan-ab4208128/)
+
+- [twitter](https://twitter.com/dinckan_berat)
+
+- [github](https://github.com/pandashavenobugs)
+
+The Github Repo
+
+https://github.com/pandashavenobugs/MqttResponsePatternBlogPost
