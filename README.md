@@ -529,3 +529,22 @@ Compile and run
 ```bash
 tsc
 ```
+
+First of all we start the subscriber.
+
+```bash
+node build/subscriber_basic.js
+```
+
+Then we start the requester.
+
+```bash
+node build/requester.js
+```
+
+The console log of the requester.js.
+
+```bash
+device_1/relay_1 : relay opened
+device_2/relay_1 : relay opened
+```
