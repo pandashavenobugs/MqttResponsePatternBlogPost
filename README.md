@@ -523,3 +523,9 @@ setTimeout(() => {
 ```
 
 The requester subscribed to the response and other topics. When a message is received by the requester the topic gets split and converted to a string array(topicArr). If the first item of this string array is 'response' the payload is passed to the responseEventName listener by using the deviceName and relayName.
+
+Compile and run
+
+```bash
+tsc
+```
