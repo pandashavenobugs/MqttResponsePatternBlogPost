@@ -149,7 +149,7 @@ Editing tscofnig.json. tsconfig.json in this project is like below.
 }
 ```
 
-Creating connectMqtt.ts util
+Creating utils/connectMqtt.ts
 
 ```ts
 // utils/connectMqtt.ts file
