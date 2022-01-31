@@ -298,7 +298,7 @@ import mqttServerClient from "./utils/connectMqtt";
 const opts: IClientSubscribeOptions = {
   qos: 1,
 };
-mqttServerClient.subscribe("request/device_1/relay_1", opts);
+mqttServerClient.subscribe("request/+/+", opts);
 
 mqttServerClient.on("message", (topic, payload, packet) => {
   console.log(packet);
