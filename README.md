@@ -20,7 +20,7 @@ So far so good but there are some issues with it. Is data received by the subscr
 
 ![basic_mqtt_response_pattern_logic](https://dev-to-uploads.s3.amazonaws.com/uploads/articles/3vc0jzj3adacmwa3jbvl.png) _basic_mqtt_response_pattern_logic_
 
-In MQTT response pattern we work on 2 main topics, request and response topics. the publisher subscribes to the response topic and the subscriber subscribes to the request topic. Note that! **Response and Request topics have to be unique otherwise it could cause confusion.** When the subscriber receives the message coming from the request topic immediately it creates and publishes a new response message to the response topic. The response message coming from the response topic is received by the publisher. So the publisher is sure that the subscriber has received the message. This is why we need MQTT response pattern.
+In the MQTT response pattern we work on 2 main topics, request and response topics. The publisher subscribes to the response topic and the subscriber subscribes to the request topic. Note that! **Response and Request topics have to be unique otherwise it could cause confusion.** When the subscriber receives the message coming from the request topic immediately it creates and publishes a new response message to the response topic. The response message coming from the response topic is received by the publisher. So the publisher is sure that the subscriber has received the message. This is why we need MQTT response pattern.
 
 ## Let's Practice
 
@@ -186,7 +186,7 @@ mqttServerClient.on("error", (err) => {
 export default mqttServerClient;
 ```
 
-The properties object in option is supported by just MQTT 5.0. So we set the protocolVersion 5 to use properties object. In this options. At this point we have 2 necessary options, requestResponseInformation and requestProblemInformation. The [RequestResponseInformation](https://www.hivemq.com/blog/mqtt5-essentials-part9-request-response-pattern/#:~:text=sender%20and%20receiver.-,Response%20Information,-In%20the%20spirit) is used for the broker sending the clients the response information in the CONNACK packet. The requestProblemInformation is used by clients to indicate any failures.
+The properties object in option is supported by just MQTT 5.0. So we set the protocolVersion 5 to use properties object. At this point we have 2 necessary options, requestResponseInformation and requestProblemInformation. The [RequestResponseInformation](https://www.hivemq.com/blog/mqtt5-essentials-part9-request-response-pattern/#:~:text=sender%20and%20receiver.-,Response%20Information,-In%20the%20spirit) is used for the broker sending the clients the response information in the CONNACK packet. The requestProblemInformation is used by clients to indicate any failures.
 
 Creating interfaces/relay.interface.ts
 
@@ -295,9 +295,9 @@ const startResponsePatternExample = async () => {
 };
 ```
 
-we have two optional parameters,[responseTopic](https://www.hivemq.com/blog/mqtt5-essentials-part9-request-response-pattern/#:~:text=a%20concrete%20example.-,Response%20Topic,-A%20response%20topic) and [correlationData](https://www.hivemq.com/blog/mqtt5-essentials-part9-request-response-pattern/#:~:text=out%20the%20request.-,Correlation%20Data,-Correlation%20data%20is). The responseTopic option represents the topic that the subscriber uses to publish the response message.The correlationData is a buffer data in nodeJS and used for additional information about the request message or a specific request. Also, it can be used for identifying by using a secret word as buffer data.
+We have two optional parameters,[responseTopic](https://www.hivemq.com/blog/mqtt5-essentials-part9-request-response-pattern/#:~:text=a%20concrete%20example.-,Response%20Topic,-A%20response%20topic) and [correlationData](https://www.hivemq.com/blog/mqtt5-essentials-part9-request-response-pattern/#:~:text=out%20the%20request.-,Correlation%20Data,-Correlation%20data%20is). The responseTopic option represents the topic that the subscriber uses to publish the response message. The correlationData is a buffer data in nodeJS and used for additional information about the request message or a specific request. Also, it can be used for identifying by using a secret word as buffer data.
 
-creating subscriber_basic.ts
+Creating subscriber_basic.ts
 
 ```ts
 import { IClientSubscribeOptions } from "mqtt";
@@ -330,7 +330,7 @@ mqttServerClient.on("message", (topic, payload, packet) => {
 });
 ```
 
-We focus on the packet parameter that contains the responseTopic and the correlationData. I use the correlationData as a secret code.The response message is published if the converted correlationData is 'secret'.
+We focus on the packet parameter that contains the responseTopic and the correlationData. I use the correlationData as a secret code. The response message is published if the converted correlationData is 'secret'.
 
 Compiling the typescript codes.
 
@@ -371,7 +371,7 @@ Packet {
 }
 ```
 
-As you can see the subscriber receives the responseTopic and correlationData in the properties object in the packet. The subscriber can use these informations to publish the response message. This example works well within certain limits. We have one topic to request and response. what would happen if the publisher subscribed to multiple response topics or other topics ? We can not listen to the specific topics while using nodeJS MQTT package. The message coming from the subscribed topics can trigger the listener in the publishWithResponseBasic function. We need a solution more complex than before.
+As you can see the subscriber receives the responseTopic and correlationData in the properties object in the packet. The subscriber can use these informations to publish the response message. This example works well within certain limits. We have one topic to request and response. What would happen if the publisher subscribed to multiple response topics or other topics ? We can not listen to the specific topics while using nodeJS MQTT package. The message coming from the subscribed topics can trigger the listener in the publishWithResponseBasic function. We need a solution more complex than before.
 
 ### Solution
 
