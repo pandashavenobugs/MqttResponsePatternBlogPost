@@ -52,7 +52,7 @@ tsc --init
 
 Editing tscofnig.json. tsconfig.json in this project is like below.
 
-```json
+```js
 {
   "compilerOptions": {
     /* Visit https://aka.ms/tsconfig.json to read more about this file */
